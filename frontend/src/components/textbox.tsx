@@ -1,18 +1,21 @@
+// TextBox.tsx
 import React, { useEffect, useState, useRef } from 'react';
 import './textbox.css';
 
-const TextBox: React.FC = () => {
-  const [text, setText] = useState('');
+interface TextBoxProps {
+  text: string;
+  onChange: (newText: string) => void;
+}
+
+const TextBox: React.FC<TextBoxProps> = ({ text, onChange }) => {
   const [labelText, setLabelText] = useState('');
   const fullLabelText = "Enter your last name";
   const indexRef = useRef(0);
   const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
-    // Full cleanup before starting new animation
     indexRef.current = 0;
     setLabelText('');
-    
     const typingInterval = setInterval(() => {
       if (indexRef.current < fullLabelText.length) {
         setLabelText(fullLabelText.slice(0, indexRef.current + 1));
@@ -22,7 +25,6 @@ const TextBox: React.FC = () => {
         setIsTyping(false);
       }
     }, 100);
-
     return () => {
       clearInterval(typingInterval);
       indexRef.current = 0;
@@ -31,16 +33,10 @@ const TextBox: React.FC = () => {
     };
   }, []);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value);
-  };
-
-  // Calculate the width based on the text length, starting very small
   const calculateWidth = () => {
-    const baseWidth = 20; // Start with a very small base width to fit 1 character
-    const additionalWidthPerCharacter = 10; // Width added per character
-    const newWidth = baseWidth + text.length * additionalWidthPerCharacter;
-    return `${newWidth}px`;
+    const baseWidth = 20;
+    const additionalWidthPerCharacter = 10;
+    return `${baseWidth + text.length * additionalWidthPerCharacter}px`;
   };
 
   return (
@@ -56,8 +52,8 @@ const TextBox: React.FC = () => {
         id="lastName"
         required
         value={text}
-        onChange={handleChange}
-        style={{ width: calculateWidth() }} // Use the calculateWidth function
+        onChange={(e) => onChange(e.target.value)}
+        style={{ width: calculateWidth() }}
       />
     </div>
   );
