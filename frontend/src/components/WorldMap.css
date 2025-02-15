@@ -1,0 +1,8 @@
+.world-map {
+  width: 100%;           /* Full width of container */
+  height: 200px;         /* Reduced map height */
+  max-width: 100%;       /* Remove fixed max width */
+  margin: 20px auto;     /* Center the map */
+  border-radius: 8px;    /* Rounded corners */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+} 
