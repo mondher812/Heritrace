@@ -1,0 +1,109 @@
+.landing-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background-color: white;
+  }
+  
+  .content-wrapper {
+    text-align: center;
+  }
+  
+  .brand {
+    margin-bottom: 3rem;
+  }
+  
+  .logo {
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: #808080;
+    margin-bottom: 1rem;
+  }
+  
+  .tagline {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #808080;
+  }
+  
+  .icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+  
+  .circle {
+    position: absolute;
+    width: 6rem;
+    height: 6rem;
+    border: 2px solid #4299e1;
+    border-radius: 50%;
+  }
+  
+  .tree-icon {
+    width: 4rem;
+    height: 4rem;
+    background-color: #d1d5db;
+    mask: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-02-15%20at%2012.03.13%E2%80%AFam-IbrcATGMTQ0mL8ynNY8OdERb40kXiy.png")
+      no-repeat center / contain;
+    -webkit-mask: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-02-15%20at%2012.03.13%E2%80%AFam-IbrcATGMTQ0mL8ynNY8OdERb40kXiy.png")
+      no-repeat center / contain;
+  }
+  
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    color: #4a5568;
+    background-color: #f7fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .cta-button:hover {
+    background-color: #edf2f7;
+  }
+  
+  .button-icon {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.5rem;
+    background-color: #4a5568;
+    mask: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-02-15%20at%2012.03.13%E2%80%AFam-IbrcATGMTQ0mL8ynNY8OdERb40kXiy.png")
+      no-repeat center / contain;
+    -webkit-mask: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-02-15%20at%2012.03.13%E2%80%AFam-IbrcATGMTQ0mL8ynNY8OdERb40kXiy.png")
+      no-repeat center / contain;
+  }
+  
+  @media (min-width: 768px) {
+    .logo {
+      font-size: 3.75rem;
+    }
+  
+    .tagline {
+      font-size: 1.5rem;
+    }
+  
+    .circle {
+      width: 8rem;
+      height: 8rem;
+    }
+  
+    .tree-icon {
+      width: 5rem;
+      height: 5rem;
+    }
+  }
+  
+  
