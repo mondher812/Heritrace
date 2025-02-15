@@ -15,7 +15,6 @@ const TextBox: React.FC = () => {
         value={text}
         onChange={handleChange}
       />
-      <p>{text}</p>
     </div>
   );
 };

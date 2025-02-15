@@ -1,6 +1,7 @@
 import React from 'react';
 import './landing.css';
 import TextBox from '../components/textbox';
+import SubmitButton from '../components/submit-button';
 
 const Landing: React.FC = () => {
   return (
@@ -8,6 +9,7 @@ const Landing: React.FC = () => {
       <header className="landing-header">
         <h1>Enter your name:</h1>
         <TextBox />
+        <SubmitButton />
       </header>
     </div>
   );
