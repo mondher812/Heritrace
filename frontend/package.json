@@ -10,9 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@huggingface/inference": "^3.3.4",
+    "axios": "^1.7.9",
+    "bottleneck": "^2.19.5",
+    "dotenv": "^16.4.7",
+    "huggingface": "^1.4.0",
+    "openai": "^4.85.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.1.5"
+    "react-router-dom": "^7.1.5",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
