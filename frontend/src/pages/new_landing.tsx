@@ -6,20 +6,25 @@ import Landing from './landing';
 
 const NewLanding: React.FC = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showSecondSection, setShowSecondSection] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Trigger transition after scrolling 100px
-      if (window.scrollY > 100) {
-        setIsTransitioning(true);
-      } else {
-        setIsTransitioning(false);
-      }
-    };
+    const timer = setTimeout(() => {
+      setIsTransitioning(true); // Start the fade-out transition
+      const secondSectionTimer = setTimeout(() => {
+        setShowSecondSection(true); // Show the second section after fade-out
+      }, 2500); // Wait for the fade-out duration (increased to 2500ms)
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+      return () => clearTimeout(secondSectionTimer); // Cleanup for the second section timer
+    }, 3000); // Start transition after 3 seconds
+
+    return () => clearTimeout(timer); // Cleanup for the initial timer
   }, []);
+
+  useEffect(() => {
+    console.log("isTransitioning state:", isTransitioning);
+    console.log("showSecondSection state:", showSecondSection);
+  }, [isTransitioning, showSecondSection]);
 
   return (
     <div className="full-page-container">
@@ -32,7 +37,7 @@ const NewLanding: React.FC = () => {
             </div>
             <div className="icon-wrapper">
               <div className="tree-icon">
-                <img 
+                <img
                   src={treeIcon}
                   alt="Tree"
                   width="175"
@@ -44,9 +49,11 @@ const NewLanding: React.FC = () => {
           </div>
         </div>
       </main>
-      <div className={`second-section ${isTransitioning ? 'fade-in' : 'fade-out'}`}>
-        <Landing />
-      </div>
+      {showSecondSection && (
+        <div className={`second-section fade-in`}>
+          <Landing />
+        </div>
+      )}
     </div>
   );
 };

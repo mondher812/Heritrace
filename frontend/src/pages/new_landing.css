@@ -1,49 +1,60 @@
 .full-page-container {
-    height: 200vh; /* Allow scrolling */
-    overflow-x: hidden;
+    height: 100vh;
+    overflow: hidden;
     position: relative;
+    background-color: white;
 }
 
 .landing-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    background-color: white;
-    width: 100%;
-    margin: 0;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
-    transition: opacity 0.5s ease-out;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 1;
+    transition: opacity 1.5s ease-in-out; /* Fade out duration */
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .landing-container.fade-out {
-    opacity: 0;
+    opacity: 0; /* Fade to 0 opacity */
     pointer-events: none;
 }
 
 .second-section {
-    min-height: 100vh;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+    height: 100%;
+    background-color: transparent; /* Make background transparent initially */
     opacity: 0;
-    transition: opacity 0.5s ease-out;
+    transition: opacity 1.5s ease-in-out; /* Fade in duration */
+    z-index: 0;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    transition-delay: 1.5s;
 }
 
 .second-section.fade-in {
     opacity: 1;
+    transition-delay: 1.5s;
 }
 
-.second-section.fade-out {
-    opacity: 0;
+.hidden {
+    display: none;
+}
+
+/* Add centering for the landing content */
+.second-section.fade-in .landing-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .new-section {
@@ -72,7 +83,7 @@
     position: relative;
     min-height: 400px;
 }
-  
+
 .brand {
     display: flex;
     align-items: center;
@@ -80,19 +91,20 @@
     margin-bottom: 3rem;
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+    transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out; /* Corrected line */
     position: absolute;
 }
 
 .brand.fade-out {
-    opacity: 0;
-    visibility: hidden;
+    opacity: 0; /* Fade out */
+    transition: opacity 2.5s ease-in-out; /* Adjusted duration to 2.5s for slower fade out */
+    visibility: hidden; /* Optional: hide after transition */
 }
 
 .input-section {
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+    transition: opacity 1.8s ease-in-out, visibility 1.8s ease-in-out; /* Adjusted duration to 1.8s for slower fade in */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -108,7 +120,7 @@
 .brand-text {
     text-align: right;
 }
-  
+
 .logo {
     font-size: 2.5rem;
     font-weight: 300;
@@ -116,42 +128,40 @@
     color: #808080;
     margin-bottom: 1rem;
 }
-  
+
 .tagline {
     font-size: 1.25rem;
     font-weight: 300;
     color: #808080;
 }
-  
+
 .icon-wrapper {
     margin: 0;
 }
-  
+
 .tree-icon {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-  
+
 .tree-icon img {
     width: 175px;
     height: 175px;
     object-fit: contain;
 }
-  
+
 @media (min-width: 768px) {
     .logo {
         font-size: 3.75rem;
     }
-  
+
     .tagline {
         font-size: 1.5rem;
     }
 }
-  
+
 /* Ensure smooth transitions for all elements */
 .brand, .brand-text, .icon-wrapper, .tree-icon, .landing-page {
-    transition: opacity 0.8s ease-in-out;
+    transition: opacity 1.5s ease-in-out;
 }
-  
-  
