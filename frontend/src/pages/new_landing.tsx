@@ -1,39 +1,35 @@
-import type React from "react";
+import React, { useState, useEffect } from "react";
 import "./new_landing.css";
 import treeIcon from "../images/tree.png";
-import { useState, useEffect } from 'react';
-import Landing from './landing';
+import Landing from "./landing";
 
 const NewLanding: React.FC = () => {
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const [showSecondSection, setShowSecondSection] = useState(false);
 
   useEffect(() => {
+    // Start fading out HERITRACE (and the rest) after 3 seconds.
     const timer = setTimeout(() => {
-      setIsTransitioning(true); // Start the fade-out transition
-      const secondSectionTimer = setTimeout(() => {
-        setShowSecondSection(true); // Show the second section after fade-out
-      }, 2500); // Wait for the fade-out duration (increased to 2500ms)
+      setIsFadingOut(true);
+      const secondTimer = setTimeout(() => {
+        setShowSecondSection(true);
+      }, 3000); // Adjust delay if needed
+      return () => clearTimeout(secondTimer);
+    }, 3000);
 
-      return () => clearTimeout(secondSectionTimer); // Cleanup for the second section timer
-    }, 3000); // Start transition after 3 seconds
-
-    return () => clearTimeout(timer); // Cleanup for the initial timer
+    return () => clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    console.log("isTransitioning state:", isTransitioning);
-    console.log("showSecondSection state:", showSecondSection);
-  }, [isTransitioning, showSecondSection]);
 
   return (
     <div className="full-page-container">
-      <main className={`landing-container ${isTransitioning ? 'fade-out' : ''}`}>
+      <main className={`landing-container ${isFadingOut ? "fade-out" : ""}`}>
         <div className="content-wrapper">
-          <div className={`brand ${isTransitioning ? 'fade-out' : ''}`}>
+          <div className="brand">
             <div className="brand-text">
-              <h1 className="logo">HERITRACE</h1>
-              <h2 className="tagline">Unlock the Past, Start Your Journey Now</h2>
+              <h1 className={`logo ${isFadingOut ? "fade-out" : ""}`}>HERITRACE</h1>
+              <h2 className={`tagline ${isFadingOut ? "fade-out" : ""}`}>
+                Unlock the Past, Start Your Journey Now
+              </h2>
             </div>
             <div className="icon-wrapper">
               <div className="tree-icon">
@@ -42,7 +38,7 @@ const NewLanding: React.FC = () => {
                   alt="Tree"
                   width="175"
                   height="175"
-                  style={{ marginLeft: '0.5rem' }}
+                  style={{ marginLeft: "0.5rem" }}
                 />
               </div>
             </div>
@@ -50,7 +46,7 @@ const NewLanding: React.FC = () => {
         </div>
       </main>
       {showSecondSection && (
-        <div className={`second-section fade-in`}>
+        <div className="second-section fade-in">
           <Landing />
         </div>
       )}
