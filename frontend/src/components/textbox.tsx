@@ -1,24 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './textbox.css';
 
 const TextBox: React.FC = () => {
   const [text, setText] = useState('');
   const [labelText, setLabelText] = useState('');
-  const fullLabelText = "Enter your last name"; // Full label text
+  const fullLabelText = "Enter your last name";
+  const indexRef = useRef(0);
+  const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
-    let index = 0;
+    // Full cleanup before starting new animation
+    indexRef.current = 0;
+    setLabelText('');
+    
     const typingInterval = setInterval(() => {
-      if (index < fullLabelText.length) {
-        setLabelText((prev) => prev + fullLabelText[index]);
-        index++;
+      if (indexRef.current < fullLabelText.length) {
+        setLabelText(fullLabelText.slice(0, indexRef.current + 1));
+        indexRef.current++;
       } else {
-        clearInterval(typingInterval); // Stop the interval when done
+        clearInterval(typingInterval);
+        setIsTyping(false);
       }
-    }, 100); // Adjust typing speed here (in milliseconds)
+    }, 100);
 
-    return () => clearInterval(typingInterval); // Cleanup on unmount
-  }, [fullLabelText]); // Add fullLabelText to dependency array
+    return () => {
+      clearInterval(typingInterval);
+      indexRef.current = 0;
+      setLabelText('');
+      setIsTyping(true);
+    };
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
@@ -34,7 +45,10 @@ const TextBox: React.FC = () => {
 
   return (
     <div className="form__group">
-      <label className="label" htmlFor="lastName">{labelText}</label>
+      <label className="label" htmlFor="lastName">
+        {labelText}
+        {isTyping && <span className="cursor"></span>}
+      </label>
       <input
         type="text"
         className="form__field"
