@@ -15,7 +15,7 @@ const TextBox: React.FC = () => {
     
     const typingInterval = setInterval(() => {
       if (indexRef.current < fullLabelText.length) {
-        setLabelText(prev => fullLabelText.slice(0, indexRef.current + 1));
+        setLabelText(fullLabelText.slice(0, indexRef.current + 1));
         indexRef.current++;
       } else {
         clearInterval(typingInterval);
