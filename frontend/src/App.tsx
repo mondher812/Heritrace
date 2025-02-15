@@ -1,14 +1,15 @@
-import { useState } from 'react';
-import './App.css';
-import Landing from './pages/landing.tsx';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Landing from "./pages/landing";
+import RotatingFlagsLoader from "./pages/loading_page";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <Landing />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/loading" element={<RotatingFlagsLoader />} />
+      </Routes>
+    </Router>
   );
 }
 
