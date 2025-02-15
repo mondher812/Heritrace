@@ -7,7 +7,6 @@ const Landing: React.FC = () => {
   return (
     <div className="landing-page">
       <header className="landing-header">
-        <h1>Enter your name:</h1>
         <TextBox />
         <SubmitButton />
       </header>
