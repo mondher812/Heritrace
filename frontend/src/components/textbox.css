@@ -1,0 +1,18 @@
+.text-box {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .text-box input {
+    padding: 10px;
+    font-size: 16px;
+    width: 80%;
+    max-width: 300px;
+    box-sizing: border-box;
+  }
+  
+  .text-box p {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #333;
+  }
