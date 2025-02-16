@@ -22,17 +22,15 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ name, continent }) => {
     setError(null);
 
     try {
-      // Fetch response (continent is optional)
       const response = await fetchGptResponse(name, continent || undefined);
-
-      // Navigate to /result with name and response
-      navigate("/result", { state: { name, response } });
+      
+      // Navigate to the loading page and pass along the GPT response and name
+      navigate("/loading", { state: { name, response } });
     } catch (error) {
       console.error("Error fetching GPT response:", error);
       setError("Failed to fetch data. Please try again.");
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
