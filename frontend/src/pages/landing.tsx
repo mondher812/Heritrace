@@ -1,24 +1,21 @@
-// landing.tsx
 import React, { useState } from 'react';
 import TextBox from '../components/textbox';
 import SubmitButton from '../components/submit-button';
 import './landing.css'; // or your styling
 
 function Landing() {
-  // State for the last name
-  const [lastName, setLastName] = useState('');
+  // State for the name
+  const [name, setName] = useState('');
 
   return (
     <div className="landing-page">
       <header className="landing-header">
-        {/* Pass the state and a setter to TextBox */}
-        <TextBox text={lastName} onChange={setLastName} />
-        
-        {/* Pass the lastName to SubmitButton */}
-        <SubmitButton lastName={lastName} />
+        <TextBox text={name} onChange={setName} />
+        <SubmitButton name={name} />
       </header>
     </div>
   );
 }
 
 export default Landing;
+

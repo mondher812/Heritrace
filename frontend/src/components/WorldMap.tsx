@@ -1,313 +1,85 @@
-import { useEffect, useRef } from 'react';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import React, { useState } from 'react';
+import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 
-export default function WorldMap() {
-  const mapRef = useRef<HTMLDivElement>(null);
+// Define the keys for the regions
+type RegionKey = "Africa" | "Asia" | "Europe" | "NorthAmerica" | "SouthAmerica" | "Oceania";
 
-  useEffect(() => {
-    if (!mapRef.current) return;
-    const map = L.map(mapRef.current).setView([20, 10], 2);
+// Define a type for the regions using Record
+type Regions = Record<RegionKey, string[]>;
 
-    // Use Stamen Watercolor tiles to change the water and overall map style.
-    L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg', {
-    
-    }).addTo(map);
-
-    // Define styles
-    const defaultStyle = {
-      fillColor: '#808080', // A light blueish overlay for countries
-      weight: 1,
-      color: 'white',
-      fillOpacity: 0.9,
-    };
-
-    const selectedStyle = {
-      fillColor: '#2E6F40', // A vibrant orange for selected countries
-      fillOpacity: 0.7,
-    };
-
-    // Mapping from country name to continent.
-    // Extend this mapping with a complete list as needed.
-    const countryToContinent: { [countryName: string]: string } = {
-     "United States of America": "North America",
-  "Canada": "North America",
-  "Mexico": "North America",
-  "Guatemala": "North America",
-  "Belize": "North America",
-  "Honduras": "North America",
-  "El Salvador": "North America",
-  "Nicaragua": "North America",
-  "Costa Rica": "North America",
-  "Panama": "North America",
-  "Haiti": "North America",
-  "Dominican Republic": "North America",
-  "Cuba": "North America",
-  "Jamaica": "North America",
-  "Trinidad and Tobago": "North America",
-  "Barbados": "North America",
-  "Saint Lucia": "North America",
-  "Saint Vincent and the Grenadines": "North America",
-  "Grenada": "North America",
-  "Saint Kitts and Nevis": "North America",
-  "Antigua and Barbuda": "North America",
-  "Dominica": "North America",
-  "Saint Pierre and Miquelon": "North America",
-  "Bermuda": "North America",
-  "Greenland": "North America",
-  "Cayman Islands": "North America",
-  "Saint Barthelemy": "North America",
-  "Sint Eustatius": "North America",
-  "Aruba": "North America",
-  "Curacao": "North America",
-  "Bonaire": "North America",
-  "Saba": "North America",
-  "Anguila": "North America",
-  "British Virgin Islands": "North America",
-
-  // South America
-  "Brazil": "South America",
-  "Argentina": "South America",
-  "Chile": "South America",
-  "Peru": "South America",
-  "Colombia": "South America",
-  "Ecuador": "South America",
-  "Venezuela": "South America",
-  "Bolivia": "South America",
-  "Paraguay": "South America",
-  "Uruguay": "South America",
-  "Guyana": "South America",
-  "Suriname": "South America",
-  "French Guiana": "South America",
-
-  // Europe
-  "France": "Europe",
-  "Germany": "Europe",
-  "Spain": "Europe",
-  "Italy": "Europe",
-  "United Kingdom": "Europe",
-  "Russia": "Europe",
-  "Poland": "Europe",
-  "Netherlands": "Europe",
-  "Belgium": "Europe",
-  "Greece": "Europe",
-  "Portugal": "Europe",
-  "Sweden": "Europe",
-  "Norway": "Europe",
-  "Finland": "Europe",
-  "Denmark": "Europe",
-  "Ireland": "Europe",
-  "Switzerland": "Europe",
-  "Austria": "Europe",
-  "Czech Republic": "Europe",
-  "Slovakia": "Europe",
-  "Hungary": "Europe",
-  "Romania": "Europe",
-  "Bulgaria": "Europe",
-  "Croatia": "Europe",
-  "Serbia": "Europe",
-  "Bosnia and Herzegovina": "Europe",
-  "Slovenia": "Europe",
-  "North Macedonia": "Europe",
-  "Albania": "Europe",
-  "Kosovo": "Europe",
-  "Montenegro": "Europe",
-  "Moldova": "Europe",
-  "Belarus": "Europe",
-  "Ukraine": "Europe",
-  "Estonia": "Europe",
-  "Latvia": "Europe",
-  "Lithuania": "Europe",
-  "Luxembourg": "Europe",
-  "Malta": "Europe",
-  "Andorra": "Europe",
-  "Monaco": "Europe",
-  "Liechtenstein": "Europe",
-  "San Marino": "Europe",
-  "Vatican City": "Europe",
-
-  // Asia
-  "China": "Asia",
-  "Japan": "Asia",
-  "India": "Asia",
-  "South Korea": "Asia",
-  "Thailand": "Asia",
-  "Vietnam": "Asia",
-  "Indonesia": "Asia",
-  "Malaysia": "Asia",
-  "Philippines": "Asia",
-  "Saudi Arabia": "Asia",
-  "Turkey": "Asia",
-  "Iran": "Asia",
-  "Iraq": "Asia",
-  "Pakistan": "Asia",
-  "Bangladesh": "Asia",
-  "Sri Lanka": "Asia",
-  "Nepal": "Asia",
-  "Afghanistan": "Asia",
-  "Israel": "Asia",
-  "Jordan": "Asia",
-  "Syria": "Asia",
-  "Lebanon": "Asia",
-  "Kuwait": "Asia",
-  "Oman": "Asia",
-  "Qatar": "Asia",
-  "Bahrain": "Asia",
-  "United Arab Emirates": "Asia",
-  "Yemen": "Asia",
-  "Kyrgyzstan": "Asia",
-  "Uzbekistan": "Asia",
-  "Turkmenistan": "Asia",
-  "Kazakhstan": "Asia",
-  "Tajikistan": "Asia",
-  "Armenia": "Asia",
-  "Georgia": "Asia",
-  "Cyprus": "Asia",
-  "Mongolia": "Asia",
-  "Laos": "Asia",
-  "Cambodia": "Asia",
-  "Bhutan": "Asia",
-  "Maldives": "Asia",
-  "Timor-Leste": "Asia",
-
-  // Oceania
-  "Australia": "Oceania",
-  "New Zealand": "Oceania",
-  "Fiji": "Oceania",
-  "Papua New Guinea": "Oceania",
-  "Solomon Islands": "Oceania",
-  "Vanuatu": "Oceania",
-  "Samoa": "Oceania",
-  "Tonga": "Oceania",
-  "Nauru": "Oceania",
-  "Tuvalu": "Oceania",
-  "Kiribati": "Oceania",
-  "Marshall Islands": "Oceania",
-  "Palau": "Oceania",
-  "Micronesia": "Oceania",
-
-  // Africa
-  "Sudan": "Africa",
-  "Ethiopia": "Africa",
-
-  "Egypt": "Africa",
-  "South Africa": "Africa",
-  "Algeria": "Africa",
-  "Kenya": "Africa",
-  "Nigeria": "Africa",
-  "Morocco": "Africa",
-  "Tunisia": "Africa",
-  "Seychelles": "Africa",
-  "Mauritius": "Africa",
-  "Madagascar": "Africa",
-  "Mozambique": "Africa",
-  "Zambia": "Africa",
-  "Angola": "Africa",
-  "Congo (Republic of the Congo)": "Africa",
-  "Congo (Democratic Republic of the Congo)": "Africa",
-  "Gabon": "Africa",
-  "Equatorial Guinea": "Africa",
-  "São Tomé and Príncipe": "Africa",
-  "Comoros": "Africa",
-  "Lesotho": "Africa",
-  "Swaziland (Eswatini)": "Africa",
-  "Malawi": "Africa",
-  "Tanzania": "Africa",
-  "Uganda": "Africa",
-  "Rwanda": "Africa",
-  "Burundi": "Africa",
-  "South Sudan": "Africa",
-  "Eritrea": "Africa",
-  "Djibouti": "Africa",
-  "Somalia": "Africa",
-  "Gambia": "Africa",
-  "Liberia": "Africa",
-  "Sierra Leone": "Africa",
-  "Guinea": "Africa",
-  "Guinea-Bissau": "Africa",
-  "Mauritania": "Africa",
-  "Mali": "Africa",
-  "Senegal": "Africa",
-  "Cote d'Ivoire": "Africa",
-  "Burkina Faso": "Africa",
-  "Niger": "Africa",
-  "Togo": "Africa",
-  "Benin": "Africa",
-  "Ghana": "Africa",
-  "Chad": "Africa",
-  "Cameroon": "Africa",
-  "Central African Republic": "Africa",
-    "Zimbabwe": "Africa",
-    "Libya": "Africa",
-    "Democratic Republic of the Congo": "Africa",
-    "Namibia": "Africa",
-    "Botswana": "Africa",
-    "United Republic of Tanzania": "Africa",
-    "Ivory Coast": "Africa",
-    "Somaliland": "Africa",
-    "Western Sahara": "Africa",
-    "Republic of Congo": "Africa",
-    "Iceland": "Europe",
-  
+// Define regions (continents) and their corresponding countries
+const regions: Regions = {
+  Africa: [
+    "Algeria" ,"Sudan", "South Sudan","Angola", "Benin", "Botswana", "Burkina Faso", "Burundi", "Cabo Verde", "Cameroon", "Central African Republic", "Chad", "Comoros", "Democratic Republic of the Congo", "Djibouti", "Egypt", "Equatorial Guinea", "Eritrea", "Eswatini", "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea", "Guinea-Bissau", "Ivory Coast", "Kenya", "Lesotho", "Liberia", "Libya", "Madagascar", "Malawi", "Mali", "Mauritania", "Mauritius", "Morocco", "Mozambique", "Namibia", "Niger", "Nigeria", "Republic of the Congo", "Rwanda", "Sao Tome and Principe", "Senegal", "Seychelles", "Sierra Leone", "Somalia", "South Africa", "South Sudan", "Sudan", "Tanzania", "Togo", "Tunisia", "Uganda", "Zambia", "Zimbabwe"
+  ],
+  Asia: [
+    "Afghanistan", "Armenia", "Azerbaijan", "Bahrain", "Bangladesh", "Bhutan", "Brunei", "Cambodia", "China", "Cyprus", "Georgia", "India", "Indonesia", "Iran", "Iraq", "Israel", "Japan", "Jordan", "Kazakhstan", "Kuwait", "Kyrgyzstan", "Laos", "Lebanon", "Malaysia", "Maldives", "Mongolia", "Myanmar", "Nepal", "North Korea", "Oman", "Pakistan", "Palestine", "Philippines", "Qatar", "Saudi Arabia", "Singapore", "South Korea", "Sri Lanka", "Syria", "Tajikistan", "Thailand", "Timor-Leste", "Turkey", "Turkmenistan", "United Arab Emirates", "Uzbekistan", "Vietnam", "Yemen"
+  ],
+  Europe: [
+    "Albania", "Andorra", "Austria", "Belarus","Republic of Serbia", "Belgium","Czech Republic", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City","England","Scotland","Ireland","Wales"
+  ],
+  NorthAmerica: [
+    "Antigua and Barbuda","Greenland", "Bahamas", "Barbados", "Belize", "Canada", "Costa Rica", "Cuba", "Dominica", "Dominican Republic", "El Salvador", "Grenada", "Guatemala", "Haiti", "Honduras", "Jamaica", "Mexico", "Nicaragua", "Panama", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Trinidad and Tobago", "USA"
+  ],
+  SouthAmerica: [
+    "Argentina", "Bolivia", "Brazil", "Chile", "Colombia", "Ecuador", "Guyana", "Paraguay", "Peru", "Suriname", "Uruguay", "Venezuela"
+  ],
+  Oceania: [
+    "Australia", "Fiji", "Kiribati", "Marshall Islands", "Micronesia", "Nauru", "New Zealand", "Palau", "Papua New Guinea", "Samoa", "Solomon Islands", "Tonga", "Tuvalu", "Vanuatu"
+  ]
 };
-    
-  
-    // Object to store each country's layer (keyed by its ADMIN property)
-    const countryLayers: { [country: string]: L.Layer } = {};
 
-    // Fetch GeoJSON for world countries
-    fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
-      .then((response) => response.json())
-      .then((geojsonData) => {
-        L.geoJSON(geojsonData, {
-          style: defaultStyle,
-          onEachFeature: (feature, layer) => {
-            const countryName = feature.properties?.ADMIN;
-            if (countryName) {
-              countryLayers[countryName] = layer;
-            }
+interface WorldMapProps {
+  onContinentSelect: (continent: string | null) => void;
+}
 
-            layer.on('click', () => {
-              const clickedCountry = feature.properties?.ADMIN;
-              if (!clickedCountry) return;
+const WorldMap: React.FC<WorldMapProps> = ({ onContinentSelect }) => {
+  const [selectedRegion, setSelectedRegion] = useState<RegionKey | null>(null);
 
-              const continent = countryToContinent[clickedCountry];
-
-              if (continent) {
-                // Loop over all country layers and update their style based on their continent.
-                Object.keys(countryLayers).forEach((name) => {
-                  if (countryToContinent[name] === continent) {
-                    (countryLayers[name] as L.Path).setStyle(selectedStyle);
-                  } else {
-                    (countryLayers[name] as L.Path).setStyle(defaultStyle);
-                  }
-                });
-                console.log("Selected continent:", continent);
-              } else {
-                // Fallback: if no continent mapping is found, just highlight that country.
-                (layer as L.Path).setStyle(selectedStyle);
-                console.log("No continent mapping for:", clickedCountry);
-              }
-            });
-          }
-        }).addTo(map);
-      })
-      .catch((error) => console.error('Error loading GeoJSON:', error));
-
-    // Clean up on component unmount
-    return () => {
-      map.remove();
-    };
-  }, []);
+  const handleRegionClick = (region: RegionKey) => {
+    const newRegion = region === selectedRegion ? null : region;
+    setSelectedRegion(newRegion);
+    onContinentSelect(newRegion); // Send selected continent to NewPage.tsx
+  };
 
   return (
-    <div
-      ref={mapRef}
-      style={{
-        height: '400px',
-        width: '100%',
-        backgroundColor: '#ffffff',
-      }}
-    />
+    <div className="world-map">
+      <ComposableMap>
+        <Geographies geography="https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson">
+          {({ geographies }) =>
+            geographies.map((geo) => {
+              const countryName = geo.properties.name;
+              const isSelected = selectedRegion ? regions[selectedRegion].includes(countryName) : false;
+
+              return (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  fill={isSelected ? "#006400" : "#D6D6DA"}
+                  stroke="#FFFFFF"
+                  style={{
+                    default: { outline: "none" },
+                    hover: { fill: isSelected ? "#006400" : "#CCCCCC", outline: "none" },
+                    pressed: { outline: "none" },
+                  }}
+                  onClick={() => {
+                    const continent = (Object.keys(regions) as RegionKey[]).find(key =>
+                      regions[key].includes(countryName)
+                    );
+                    if (continent) {
+                      handleRegionClick(continent);
+                    }
+                  }}
+                />
+              );
+            })
+          }
+        </Geographies>
+      </ComposableMap>
+
+      {selectedRegion && <div>Selected Region: {selectedRegion}</div>}
+    </div>
   );
-} 
+};
+
+export default WorldMap;
