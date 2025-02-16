@@ -1,5 +1,5 @@
-// TextBox.tsx
 import { useEffect, useState, useRef } from 'react';
+
 import './textbox.css';
 
 interface TextBoxProps {
@@ -14,30 +14,29 @@ export default function TextBox({ text, onChange }: TextBoxProps) {
   const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
-    indexRef.current = 0;
-    setLabelText('');
-    const typingInterval = setInterval(() => {
-      if (indexRef.current < fullLabelText.length) {
-        setLabelText(fullLabelText.slice(0, indexRef.current + 1));
-        indexRef.current++;
-      } else {
-        clearInterval(typingInterval);
-        setIsTyping(false);
-      }
-    }, 100);
+    let typingInterval: NodeJS.Timeout;
+
+    const startTyping = () => {
+      typingInterval = setInterval(() => {
+        if (indexRef.current < fullLabelText.length) {
+          setLabelText(fullLabelText.slice(0, indexRef.current + 1));
+          indexRef.current++;
+        } else {
+          clearInterval(typingInterval);
+          setIsTyping(false);
+        }
+      }, 100);
+    };
+
+    startTyping();
+
     return () => {
       clearInterval(typingInterval);
       indexRef.current = 0;
       setLabelText('');
       setIsTyping(true);
     };
-  }, []);
-
-  const calculateWidth = () => {
-    const baseWidth = 20;
-    const additionalWidthPerCharacter = 10;
-    return `${baseWidth + text.length * additionalWidthPerCharacter}px`;
-  };
+  }, [fullLabelText]);
 
   return (
     <div className="form__group">
@@ -52,8 +51,7 @@ export default function TextBox({ text, onChange }: TextBoxProps) {
         id="lastName"
         required
         value={text}
-        onChange={(e: { target: { value: string } }) => onChange(e.target.value)}
-        style={{ width: calculateWidth() }}
+        onChange={(e) => onChange(e.target.value)}
       />
     </div>
   );

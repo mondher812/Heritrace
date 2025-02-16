@@ -1,107 +1,74 @@
-:root {
-  --primary: #11998e;
-  --secondary: #38ef7d;
-  --white: #fff;
-  --gray: #9b9b9b;
-}
-
 body {
-  font-family: 'Poppins', sans-serif; 
+  font-family: 'Poppins', sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   font-size: 1.5rem;
-  background-color: #222222;
+  background-color: var(--white);
+  margin: 0;
+  padding: 0;
 }
 
 .form__group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
   align-items: center;
-  margin-left: 20px;
+  width: 100%;
+  max-width: 600px;
 }
 
 .label {
-  font-size: 20px;
-  color: #4a4a4a;
-  margin-bottom: 0;
-  white-space: nowrap;
+  font-size: 50px;
+  color: rgb(0, 0, 0);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.form__field {
-  min-width: 150px;
-  max-width: 300px;
-  padding: 5px;
-  font-size: 20px;
-  color: #4a4a4a;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-  transition: border-color 0.2s;
-  resize: none;
-  margin-left: 15px;
-}
-
-.form__field::placeholder {
-  color: #4a4a4a;
-  opacity: 0.7;
-}
-
-.form__field:placeholder-shown ~ .form__label {
-  font-size: 1.3rem;
-  cursor: text;
-  top: 20px;
-}
-
-.form__label {
-  position: absolute;
-  top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 1rem;
-  color: var(--gray);
-}
-
-.form__field:focus {
-  outline: none;
-  box-shadow: none;
-  border-color: #4a4a4a;
-}
-
-/* Additional rule to prevent glow effect */
-.form__field:focus-visible {
-  outline: none;
-  box-shadow: none;
-}
-
-/* reset input */
-.form__field {
-  &:required,
-  &:invalid { 
-    box-shadow: none; 
-  }
-}
-
-/* Override any default browser styles */
-.form__field:focus {
-  outline: 0;
-  border-color: #4a4a4a;
-}
-
-/* Add to bottom of file */
 .cursor {
   display: inline-block;
-  width: 2px;
-  height: 1em;
-  background-color: #4a4a4a;
-  margin-left: 2px;
-  animation: blink 1s step-end infinite;
+  width: 10px;
+  height: 24px;
+  background-color: black;
+  margin-left: 5px;
+  animation: blink 0.8s infinite;
+}
+
+.form__field {
+  font-size: 2rem;
+  text-align: center;
+  border: none;
+  background: transparent;
+  outline: 1px solid black;
+  width: 300px;
+  caret-color: black;
+  color: rgb(0, 0, 0);
+}
+
+.form__field:focus {
+  caret-color: black;
+  animation: blink-caret 1s step-end infinite;
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  from,
+  to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: black;
+  }
 }
