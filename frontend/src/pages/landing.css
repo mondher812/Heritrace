@@ -40,6 +40,9 @@
   margin: 10px;
 }
 
+.landing-text {
+  margin: -40px;
+}
 button:hover {
   background-color: #717171;
   border: none;

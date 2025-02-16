@@ -1,48 +1,14 @@
-import { useEffect, useState, useRef } from 'react';
-
+import React from 'react';
 import './textbox.css';
-
 interface TextBoxProps {
   text: string;
   onChange: (newText: string) => void;
 }
-
-export default function TextBox({ text, onChange }: TextBoxProps) {
-  const [labelText, setLabelText] = useState('');
-  const fullLabelText = "Enter your name!";
-  const indexRef = useRef(0);
-  const [isTyping, setIsTyping] = useState(true);
-
-  useEffect(() => {
-    let typingInterval: NodeJS.Timeout;
-
-    const startTyping = () => {
-      typingInterval = setInterval(() => {
-        if (indexRef.current < fullLabelText.length) {
-          setLabelText(fullLabelText.slice(0, indexRef.current + 1));
-          indexRef.current++;
-        } else {
-          clearInterval(typingInterval);
-          setIsTyping(false);
-        }
-      }, 100);
-    };
-
-    startTyping();
-
-    return () => {
-      clearInterval(typingInterval);
-      indexRef.current = 0;
-      setLabelText('');
-      setIsTyping(true);
-    };
-  }, [fullLabelText]);
-
+const TextBox: React.FC<TextBoxProps> = ({ text, onChange }) => {
   return (
     <div className="form__group">
       <label className="label" htmlFor="lastName">
-        {labelText}
-        {isTyping && <span className="cursor"></span>}
+        Enter your last name
       </label>
       <input
         type="text"
@@ -55,4 +21,5 @@ export default function TextBox({ text, onChange }: TextBoxProps) {
       />
     </div>
   );
-}
+};
+export default TextBox;
