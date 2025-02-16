@@ -1,23 +1,28 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./new_landing.css";
 import treeIcon from "../images/tree.png";
 import Landing from "./landing";
 
-const NewLanding: React.FC = () => {
+export default function NewLanding() {
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [showSecondSection, setShowSecondSection] = useState(false);
 
   useEffect(() => {
-    // Start fading out HERITRACE (and the rest) after 3 seconds.
-    const timer = setTimeout(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    let secondTimer: ReturnType<typeof setTimeout>;
+
+    timer = setTimeout(() => {
       setIsFadingOut(true);
-      const secondTimer = setTimeout(() => {
+      secondTimer = setTimeout(() => {
         setShowSecondSection(true);
       }, 1000); // Adjust delay if needed
       return () => clearTimeout(secondTimer);
     }, 1000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(secondTimer);
+    };
   }, []);
 
   return (
@@ -36,8 +41,8 @@ const NewLanding: React.FC = () => {
                 <img
                   src={treeIcon}
                   alt="Tree"
-                  width="175"
-                  height="175"
+                  width={175}
+                  height={175}
                   style={{ marginLeft: "0.5rem" }}
                 />
               </div>
@@ -52,6 +57,4 @@ const NewLanding: React.FC = () => {
       )}
     </div>
   );
-};
-
-export default NewLanding;
+}
