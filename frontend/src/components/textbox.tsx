@@ -1,5 +1,5 @@
 // TextBox.tsx
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './textbox.css';
 
 interface TextBoxProps {
@@ -7,7 +7,7 @@ interface TextBoxProps {
   onChange: (newText: string) => void;
 }
 
-const TextBox: React.FC<TextBoxProps> = ({ text, onChange }) => {
+export default function TextBox({ text, onChange }: TextBoxProps) {
   const [labelText, setLabelText] = useState('');
   const fullLabelText = "Enter your last name";
   const indexRef = useRef(0);
@@ -52,11 +52,9 @@ const TextBox: React.FC<TextBoxProps> = ({ text, onChange }) => {
         id="lastName"
         required
         value={text}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e: { target: { value: string } }) => onChange(e.target.value)}
         style={{ width: calculateWidth() }}
       />
     </div>
   );
-};
-
-export default TextBox;
+}

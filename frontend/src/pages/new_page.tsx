@@ -1,30 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import './new_page.css'; // New CSS file for the new page
+import React, { useState } from 'react';
+import './new_page.css';
 import TextBox from '../components/textbox';
 import SubmitButton from '../components/submit-button';
-import WorldMap from '../components/WorldMap'; // Import the WorldMap component
+import WorldMap from '../components/WorldMap';
 
-const NewPage: React.FC = () => {
-  const [isFadingIn, setIsFadingIn] = useState(false);
-
-  useEffect(() => {
-    setIsFadingIn(true);
-  }, []);
+export default function NewPage() {
+  const [text, setText] = useState('');
 
   return (
-    <div className={`landing-page ${isFadingIn ? 'fade-in' : ''}`}>
+    <div className="landing-page">
       <header className="landing-header">
         <h1 className="new-page-title">GOT IT WRONG? HELP US OUT</h1>
         <div className="textbox-container">
-          <TextBox />
+          <TextBox text={text} onChange={setText} />
         </div>
         <WorldMap />
         <div className="submit-button-container">
-          <SubmitButton />
+          <SubmitButton lastName={text} />
         </div>
       </header>
     </div>
   );
-};
-
-export default NewPage; 
+} 
