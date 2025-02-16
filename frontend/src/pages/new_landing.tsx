@@ -13,9 +13,9 @@ const NewLanding: React.FC = () => {
       setIsFadingOut(true);
       const secondTimer = setTimeout(() => {
         setShowSecondSection(true);
-      }, 3000); // Adjust delay if needed
+      }, 1000); // Adjust delay if needed
       return () => clearTimeout(secondTimer);
-    }, 3000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);

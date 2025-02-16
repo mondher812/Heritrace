@@ -1,5 +1,5 @@
-// TextBox.tsx
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
+
 import './textbox.css';
 
 interface TextBoxProps {
@@ -7,37 +7,36 @@ interface TextBoxProps {
   onChange: (newText: string) => void;
 }
 
-const TextBox: React.FC<TextBoxProps> = ({ text, onChange }) => {
+export default function TextBox({ text, onChange }: TextBoxProps) {
   const [labelText, setLabelText] = useState('');
   const fullLabelText = "Enter your last name";
   const indexRef = useRef(0);
   const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
-    indexRef.current = 0;
-    setLabelText('');
-    const typingInterval = setInterval(() => {
-      if (indexRef.current < fullLabelText.length) {
-        setLabelText(fullLabelText.slice(0, indexRef.current + 1));
-        indexRef.current++;
-      } else {
-        clearInterval(typingInterval);
-        setIsTyping(false);
-      }
-    }, 100);
+    let typingInterval: NodeJS.Timeout;
+
+    const startTyping = () => {
+      typingInterval = setInterval(() => {
+        if (indexRef.current < fullLabelText.length) {
+          setLabelText(fullLabelText.slice(0, indexRef.current + 1));
+          indexRef.current++;
+        } else {
+          clearInterval(typingInterval);
+          setIsTyping(false);
+        }
+      }, 100);
+    };
+
+    startTyping();
+
     return () => {
       clearInterval(typingInterval);
       indexRef.current = 0;
       setLabelText('');
       setIsTyping(true);
     };
-  }, []);
-
-  const calculateWidth = () => {
-    const baseWidth = 20;
-    const additionalWidthPerCharacter = 10;
-    return `${baseWidth + text.length * additionalWidthPerCharacter}px`;
-  };
+  }, [fullLabelText]);
 
   return (
     <div className="form__group">
@@ -53,10 +52,7 @@ const TextBox: React.FC<TextBoxProps> = ({ text, onChange }) => {
         required
         value={text}
         onChange={(e) => onChange(e.target.value)}
-        style={{ width: calculateWidth() }}
       />
     </div>
   );
-};
-
-export default TextBox;
+}
