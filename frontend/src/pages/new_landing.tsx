@@ -15,8 +15,9 @@ export default function NewLanding() {
       setIsFadingOut(true);
       secondTimer = setTimeout(() => {
         setShowSecondSection(true);
-      }, 3000); // Delay before showing the second section
-    }, 3000); // Delay before starting the fade-out
+      }, 1000); // Adjust delay if needed
+      return () => clearTimeout(secondTimer);
+    }, 1000);
 
     return () => {
       clearTimeout(timer);
