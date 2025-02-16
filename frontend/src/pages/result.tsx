@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./result.css";
+import ImageGenerator from "../components/ImageGenerator";
 
 const Result: React.FC = () => {
   const location = useLocation();
@@ -29,11 +30,12 @@ const Result: React.FC = () => {
       <h1>Results for "{name}"</h1>
 
       <div className="results">
+        <ImageGenerator/>
         <p><strong>Country of Origin:</strong> {response.country || "N/A"}</p>
         <p><strong>Meaning:</strong> {response.meaning || "N/A"}</p>
-        <div><strong>Popular Food:</strong> {renderObjectValues(response.food)}</div>
-        <div><strong>Traditional Clothes:</strong> {renderObjectValues(response.clothes)}</div>
-        <div><strong>Language Spoken:</strong> {renderObjectValues(response.language)}</div>
+        <p><strong>Popular Food:</strong> {renderObjectValues(response.food)}</p>
+        <p><strong>Traditional Clothes:</strong> {renderObjectValues(response.clothes)}</p>
+        <p><strong>Language Spoken:</strong> {renderObjectValues(response.language)}</p>
         <p><strong>Overall Summary:</strong> {response.summary || "N/A"}</p>
       </div>
 

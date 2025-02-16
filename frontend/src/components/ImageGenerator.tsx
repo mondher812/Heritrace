@@ -14,22 +14,73 @@ const ImageGenerator: React.FC = () => {
     setCapturedImage(capturedImage);
   };
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     console.log("Generating Image with:", { prompt, capturedImage }); // Debugging
-    generateImage(prompt, capturedImage, setImageUrl, setError, setLoading);
-  };
-  
-  return (
-    <div>
-      <h1>Stable Diffusion Image Generator</h1>
-      <WebcamCapture onCapture={setCapturedImage} /> {/* Get webcam image */}
+    setLoading(true);
+    setError(null);
 
-      <button onClick={handleGenerate} disabled={loading || !capturedImage}>
+    try {
+      await generateImage(prompt, capturedImage, setImageUrl, setError, setLoading);
+    } catch (err) {
+      setError('Failed to generate image. Please try again.');
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div style={{ textAlign: 'center' }}>
+
+      {/* Square Frame Placeholder */}
+      <div
+        style={{
+          width: '200px',
+          height: '200px',
+          border: '2px solid black',
+          borderRadius: '10px',
+          margin: '20px auto',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          overflow: 'hidden',
+          position: 'relative',
+        }}
+      >
+        {capturedImage ? (
+          // Display captured or generated image
+          <img
+            src={imageUrl || capturedImage}
+            alt={imageUrl ? 'Generated' : 'Captured'}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        ) : (
+          // Display WebcamCapture component if no image is captured
+          <WebcamCapture onCapture={handleCapture} />
+        )}
+      </div>
+
+      {/* Generate Button */}
+      <button
+        onClick={handleGenerate}
+        disabled={loading || !capturedImage}
+        style={{
+          padding: '10px 20px',
+          fontSize: '16px',
+          backgroundColor: loading || !capturedImage ? '#ccc' : '#007bff',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: loading || !capturedImage ? 'not-allowed' : 'pointer',
+        }}
+      >
         {loading ? 'Generating...' : 'Generate Image'}
       </button>
 
+      {/* Error Message */}
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      {imageUrl && <img src={imageUrl} alt="Generated" />}
     </div>
   );
 };
