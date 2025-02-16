@@ -13,10 +13,15 @@ function Landing() {
       <header className="landing-header">
         <img src={logo} alt="logo" className="landing-image"/>
         {/* Pass the state and a setter to TextBox */}
-        <TextBox text={name} onChange={setName} />
+
+        <div className="landing-text">
+          <TextBox text={name} onChange={setName} />
+        </div>
         
         {/* Pass the lastName to SubmitButton */}
-        <SubmitButton name={name} />
+        <div className="submit-button">
+          <SubmitButton name={name} />
+        </div>    
       </header>
     </div>
   );
