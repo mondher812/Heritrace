@@ -8,7 +8,7 @@ const TextBox: React.FC<TextBoxProps> = ({ text, onChange }) => {
   return (
     <div className="form__group">
       <label className="label" htmlFor="lastName">
-        Enter your last name
+        Enter your name!
       </label>
       <input
         type="text"
