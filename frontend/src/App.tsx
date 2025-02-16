@@ -4,6 +4,7 @@ import RotatingFlagsLoader from './pages/loading_page';
 import NewLanding from './pages/new_landing'
 import NewPage from './pages/new_page';
 import Testing from './pages/testing';
+import Result from  './pages/result';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/loading" element={<RotatingFlagsLoader />} />
         <Route path="/testing" element={<Testing />} />
         <Route path="/new-page" element={<NewPage />} />
+        <Route path="/result" element={<Result />} />
       </Routes>
     </Router>
   );

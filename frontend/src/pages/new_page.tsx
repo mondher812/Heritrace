@@ -1,30 +1,36 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './new_page.css'; // New CSS file for the new page
-import TextBox from '../components/textbox';
 import SubmitButton from '../components/submit-button';
 import WorldMap from '../components/WorldMap'; // Import the WorldMap component
 
 const NewPage: React.FC = () => {
-  const [isFadingIn, setIsFadingIn] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { name } = location.state || {};
+  const [continent, setContinent] = useState<string | null>(null);
 
   useEffect(() => {
-    setIsFadingIn(true);
-  }, []);
+    if (!name) {
+      navigate("/");
+    }
+  }, [name, navigate]);
 
   return (
-    <div className={`landing-page ${isFadingIn ? 'fade-in' : ''}`}>
+    <div className="landing-page">
       <header className="landing-header">
-        <h1 className="new-page-title">GOT IT WRONG? HELP US OUT</h1>
-        <div className="textbox-container">
-          <TextBox />
-        </div>
-        <WorldMap />
+        <h1 className="new-page-title">Select a Continent</h1>
+
+        {/* World map - updates continent state */}
+        <WorldMap onContinentSelect={setContinent} />
+
+        {/* Submit button sends the name + continent to ChatGPT */}
         <div className="submit-button-container">
-          <SubmitButton />
+          <SubmitButton name={name} continent={continent} />
         </div>
       </header>
     </div>
   );
 };
 
-export default NewPage; 
+export default NewPage;

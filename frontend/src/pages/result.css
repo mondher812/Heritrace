@@ -1,0 +1,12 @@
+.result-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #d3d3d3; /* ✅ Light gray background */
+    color: black;
+    font-size: 20px;
+  }
+  

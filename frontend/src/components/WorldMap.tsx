@@ -29,40 +29,27 @@ const regions: Regions = {
   ]
 };
 
-// Define a type for the geography object
-interface GeographyType {
-  rsmKey: string;
-  properties: {
-    name: string;
-  };
+interface WorldMapProps {
+  onContinentSelect: (continent: string | null) => void;
 }
 
-const countryNameMapping: Record<string, string> = {
-  "South Sudan": "South Sudan",
-  "Eritrea": "Eritrea",
-  "Sudan": "Sudan",
-  "Republic of the Congo": "Republic of the Congo",
-  // Add any other mappings as necessary
-};
-
-const WorldMap: React.FC = () => {
+const WorldMap: React.FC<WorldMapProps> = ({ onContinentSelect }) => {
   const [selectedRegion, setSelectedRegion] = useState<RegionKey | null>(null);
 
   const handleRegionClick = (region: RegionKey) => {
-    setSelectedRegion(region === selectedRegion ? null : region);
+    const newRegion = region === selectedRegion ? null : region;
+    setSelectedRegion(newRegion);
+    onContinentSelect(newRegion); // Send selected continent to NewPage.tsx
   };
 
   return (
     <div className="world-map">
       <ComposableMap>
         <Geographies geography="https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson">
-          {({ geographies }: { geographies: GeographyType[] }) =>
-            geographies.map((geo: GeographyType) => {
+          {({ geographies }) =>
+            geographies.map((geo) => {
               const countryName = geo.properties.name;
-              const normalizedCountryName = countryNameMapping[countryName] || countryName;
-              const isSelected = selectedRegion ? regions[selectedRegion].includes(normalizedCountryName) : false;
-
-              console.log(`Country: ${normalizedCountryName}, Selected Region: ${selectedRegion}, Is Selected: ${isSelected}`);
+              const isSelected = selectedRegion ? regions[selectedRegion].includes(countryName) : false;
 
               return (
                 <Geography
@@ -76,9 +63,9 @@ const WorldMap: React.FC = () => {
                     pressed: { outline: "none" },
                   }}
                   onClick={() => {
-                    console.log(`Clicked on: ${normalizedCountryName}`);
-                    const continent = (Object.keys(regions) as RegionKey[]).find(key => regions[key].includes(normalizedCountryName));
-                    console.log(`Continent found: ${continent}`);
+                    const continent = (Object.keys(regions) as RegionKey[]).find(key =>
+                      regions[key].includes(countryName)
+                    );
                     if (continent) {
                       handleRegionClick(continent);
                     }
@@ -89,9 +76,10 @@ const WorldMap: React.FC = () => {
           }
         </Geographies>
       </ComposableMap>
+
       {selectedRegion && <div>Selected Region: {selectedRegion}</div>}
     </div>
   );
 };
 
-export default WorldMap; 
+export default WorldMap;

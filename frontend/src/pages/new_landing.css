@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap');
+
 .full-page-container {
     height: 100vh;
     overflow: hidden;
@@ -46,31 +48,6 @@
     transition-delay: 1.5s;
 }
 
-.hidden {
-    display: none;
-}
-
-/* Add centering for the landing content */
-.second-section.fade-in .landing-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.new-section {
-    min-height: 100vh;
-    position: fixed;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: white;
-    transition: transform 0.5s ease-out;
-}
-
-.new-section.slide-in {
-    transform: translateY(-100%);
-}
-
 .content-wrapper {
     text-align: center;
     display: flex;
@@ -84,84 +61,19 @@
     min-height: 400px;
 }
 
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 3rem;
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out; /* Corrected line */
-    position: absolute;
+.new-page-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 0.05rem;
+    color: #333; /* Clean dark gray */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.brand.fade-out {
-    opacity: 0; /* Fade out */
-    transition: opacity 2.5s ease-in-out; /* Adjusted duration to 2.5s for slower fade out */
-    visibility: hidden; /* Optional: hide after transition */
+.new-page-title:hover {
+    transform: scale(1.05);
 }
 
-.input-section {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 1.8s ease-in-out, visibility 1.8s ease-in-out; /* Adjusted duration to 1.8s for slower fade in */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-}
-
-.input-section.fade-in {
-    opacity: 1;
-    visibility: visible;
-}
-
-.brand-text {
-    text-align: right;
-}
-
-.logo {
-    font-size: 2.5rem;
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    color: #808080;
-    margin-bottom: 1rem;
-}
-
-.tagline {
-    font-size: 1.25rem;
-    font-weight: 300;
-    color: #808080;
-}
-
-.icon-wrapper {
-    margin: 0;
-}
-
-.tree-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.tree-icon img {
-    width: 175px;
-    height: 175px;
-    object-fit: contain;
-}
-
-@media (min-width: 768px) {
-    .logo {
-        font-size: 3.75rem;
-    }
-
-    .tagline {
-        font-size: 1.5rem;
-    }
-}
-
-/* Ensure smooth transitions for all elements */
-.brand, .brand-text, .icon-wrapper, .tree-icon, .landing-page {
-    transition: opacity 1.5s ease-in-out;
-}
+/* Add other existing styles as needed */ 
