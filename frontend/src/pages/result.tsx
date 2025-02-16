@@ -28,9 +28,10 @@ const Result: React.FC = () => {
   return (
     <div className="result-container">
       <h1>Results for "{name}"</h1>
+      <h2>See what you look like in your traditional clothes!</h2>
 
       <div className="results">
-        <ImageGenerator/>
+        <ImageGenerator variable={response.clothes || "your country"} />
         <p><strong>Country of Origin:</strong> {response.country || "N/A"}</p>
         <p><strong>Meaning:</strong> {response.meaning || "N/A"}</p>
         <p><strong>Popular Food:</strong> {renderObjectValues(response.food)}</p>

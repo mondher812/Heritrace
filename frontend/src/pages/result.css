@@ -5,18 +5,26 @@
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
+  font-family: Jetbrains Mono NL;
 }
 
 .result-container h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: px;
   color: #333;
+  font-size: 55px;
 }
 
-.results {
+.result-container h2 {
+  text-align: center;
   margin-bottom: 20px;
-  color:#000
+  color: #6b6767;
+  font-size: 20px;
+}
+
+.results p{
+  color:#000;
+  font-size: 18px;
 }
 
 .result-section {
@@ -30,20 +38,23 @@
 }
 
 .result-section p {
-  font-size: 1.1rem;
+  font-size: 20px;
   color: #333;
   margin: 0;
 }
 
 .button-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; 
+  align-items: center; 
+  gap: 10px; 
   margin-top: 20px;
+  width: 100%;
 }
 
 .button-container .back-button,
 .button-container .try-again-button {
-  padding: 10px 20px;
+  padding: 10px 20px; /* Add padding for better spacing */
   font-size: 1rem;
   color: #fff;
   background-color: #000000;
@@ -55,5 +66,5 @@
 
 .button-container .back-button:hover,
 .button-container .try-again-button:hover {
-  background-color: #000000;
+  background-color: #454444;
 }
