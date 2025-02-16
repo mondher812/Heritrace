@@ -61,36 +61,19 @@
     min-height: 400px;
 }
 
-.landing-page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding-top: 0;
-}
-
-.landing-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3rem;
-    padding-top: 2vh; /* Position from top of viewport */
-}
-
 .new-page-title {
+    font-family: 'Montserrat', sans-serif;
     font-size: 3.2rem;
     font-weight: 700;
-    color: #333;
     text-align: center;
+    margin-bottom: 30px;
     letter-spacing: 0.05rem;
+    color: #333; /* Clean dark gray */
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.textbox-container {
-    margin-top: 5vh;
-}
-
-.submit-button-container {
-    margin-top: 4vh;
+.new-page-title:hover {
+    transform: scale(1.05);
 }
 
 /* Add other existing styles as needed */ 
