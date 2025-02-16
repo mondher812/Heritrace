@@ -8,7 +8,6 @@ interface SubmitButtonProps {
 }
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({ name, continent }) => {
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -18,21 +17,21 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ name, continent }) => {
       return;
     }
 
-    setLoading(true);
+    // Navigate to loading screen immediately
+    navigate("/loading", { state: { name, continent } });
+
     setError(null);
 
     try {
-      // Fetch response (continent is optional)
       const response = await fetchGptResponse(name, continent || undefined);
-
-      // Navigate to /result with name and response
-      navigate("/result", { state: { name, response } });
+      // Update the state with the response
+      navigate("/result", { state: { name, response }, replace: true });
     } catch (error) {
       console.error("Error fetching GPT response:", error);
       setError("Failed to fetch data. Please try again.");
+      // Go back to previous page on error
+      navigate(-1);
     }
-
-    setLoading(false);
   };
 
   return (
@@ -40,9 +39,8 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ name, continent }) => {
       <button 
         className="submit-button" 
         onClick={handleClick} 
-        disabled={loading}
       >
-        {loading ? "Loading..." : "Submit"}
+        Submit
       </button>
 
       {error && <p className="error-message" style={{ color: "red" }}>{error}</p>}

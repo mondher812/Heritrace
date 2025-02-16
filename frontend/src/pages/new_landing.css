@@ -161,7 +161,4 @@
     }
 }
 
-/* Ensure smooth transitions for all elements */
-.brand, .brand-text, .icon-wrapper, .tree-icon, .landing-page {
-    transition: opacity 1.5s ease-in-out;
-}
+/* Add other existing styles as needed */ 

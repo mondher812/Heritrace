@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// @ts-ignore
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 
 // Define the keys for the regions
