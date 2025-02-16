@@ -9,7 +9,7 @@ const ParentComponent: React.FC = () => {
   return (
     <div>
       <TextBox text={lastName} onChange={setLastName} />
-      <SubmitButton lastName={lastName} />
+      <SubmitButton name={lastName} />
     </div>
   );
 };
