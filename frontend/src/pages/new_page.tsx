@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './new_page.css';
 import TextBox from '../components/textbox';
 import SubmitButton from '../components/submit-button';
@@ -10,7 +10,7 @@ export default function NewPage() {
   return (
     <div className="landing-page">
       <header className="landing-header">
-        <h1 className="new-page-title">GOT IT WRONG? HELP US OUT</h1>
+        <h1 className="logo">GOT IT WRONG? HELP US OUT</h1>
         <div className="textbox-container">
           <TextBox text={text} onChange={setText} />
         </div>
