@@ -1,15 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import globeImage from '../assets/globe.gif'; // Add the image to your assets folder
 import "./loading_page.css";
-
-const flags = [
-  "🇳🇬", // Nigeria
-  "🇺🇸", // United States
-  "🇰🇵", // North Korea
-  "🇨🇦", // Canada
-  "🇰🇬", // Kyrgyzstan
-  "🇺🇬"  // Uganda
-];
 
 const RotatingFlagsLoader: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -20,13 +12,6 @@ const RotatingFlagsLoader: React.FC = () => {
   const stateRef = useRef(location.state);
 
   useEffect(() => {
-    if (containerRef.current) {
-      const elements = containerRef.current.children;
-      Array.from(elements).forEach((el, index) => {
-        (el as HTMLElement).style.transform = `rotate(${(index * 360) / flags.length}deg) translate(80px) rotate(${-(index * 360) / flags.length}deg)`;
-      });
-    }
-
     // Set a timer to navigate after 3 seconds
     const timer = setTimeout(() => {
       navigate("/result", { state: stateRef.current });
@@ -38,9 +23,8 @@ const RotatingFlagsLoader: React.FC = () => {
   return (
     <div className="page-container">
       <div className="loading-container" ref={containerRef}>
-        {flags.map((flag, index) => (
-          <span key={index} className="flag">{flag}</span>
-        ))}
+        <h1 className="loading-text">Please wait while we dig up your roots...</h1>
+        <img src={globeImage} alt="Globe" className="center-globe" />
       </div>
     </div>
   );
