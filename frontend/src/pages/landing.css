@@ -24,3 +24,10 @@
 .landing-header h1 {
   font-weight: 500; /* Bold */
 }
+
+.landing-image {
+  width: 300px; /* Adjust the width as needed */
+  height: auto;
+  margin-bottom: -80px; 
+  margin-top: -250px
+}
