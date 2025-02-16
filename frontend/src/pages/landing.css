@@ -1,14 +1,17 @@
 .landing-page {
   width: 100vw;
-  height: 100vh; 
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: Arial, sans-serif;
+  font-family: Jetbrains Mono NL;
   background-color: white;
-  opacity: 1; /* Start with 0 opacity for fade-in */
-  transition: opacity 1s ease-in-out; /* Fade-in transition */
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+  
+  /* Add padding here */
+  padding: 20px;
 }
 
 .landing-page.fade-in {
@@ -28,6 +31,18 @@
 .landing-image {
   width: 300px; /* Adjust the width as needed */
   height: auto;
-  margin-bottom: -80px; 
-  margin-top: -250px
+  margin-top: -150px;
+  margin-bottom: -50px;
+
 }
+
+.submit-button {
+  margin: 10px;
+}
+
+button:hover {
+  background-color: #717171;
+  border: none;
+}
+
+

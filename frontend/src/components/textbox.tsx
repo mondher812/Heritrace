@@ -9,7 +9,7 @@ interface TextBoxProps {
 
 export default function TextBox({ text, onChange }: TextBoxProps) {
   const [labelText, setLabelText] = useState('');
-  const fullLabelText = "Enter your last name";
+  const fullLabelText = "Enter your name!";
   const indexRef = useRef(0);
   const [isTyping, setIsTyping] = useState(true);
 

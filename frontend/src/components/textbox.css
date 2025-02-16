@@ -1,5 +1,5 @@
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: Jetbrains Mono NL;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -46,6 +46,8 @@ body {
   width: 300px;
   caret-color: black;
   color: rgb(0, 0, 0);
+  border-radius: 5px;
+  font-family: inherit;
 }
 
 .form__field:focus {
